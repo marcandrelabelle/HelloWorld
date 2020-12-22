@@ -11,6 +11,46 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 
+struct Person
+{
+    int age = 0;
+    int heightInInches = 0;
+    float hairLength{0.f};
+    float GPA = 0.f;
+    unsigned int SATScore {0};
+    int distanceTraveled =0;
+    
+    Person();
+};
+Person::Person(){}
+
+struct IntValue
+{
+    IntValue()
+    {
+        DBG( "IntValue constructor" );
+    }
+    ~IntValue()
+    {
+        DBG ( "IntValue destructor" );
+    }
+    int value;
+};
+
+int functionA(int val)
+{
+    IntValue a;
+    a.value = 5;
+    return val * 2 + a.value;
+}
+
+void functionB()
+{
+    IntValue val;
+    val.value = functionA(3);
+    val.value *= 4;
+}
+
 //==============================================================================
 class HelloWorldApplication  : public JUCEApplication
 {
