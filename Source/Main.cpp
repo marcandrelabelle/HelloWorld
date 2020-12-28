@@ -18,11 +18,18 @@ struct Person
     float hairLength{0.f};
     float GPA = 0.f;
     unsigned int SATScore {0};
-    int distanceTraveled =0;
+    int distanceTraveled = 0;
+    String name;
     
-    Person();
+    Person(String personsName) : name(personsName)
+    {
+        DBG( "Person ctor: " + name);
+    }
+    ~Person()
+    {
+        DBG( "Person dtor: " + name);
+    }
 };
-Person::Person(){}
 
 struct IntValue
 {
@@ -78,6 +85,22 @@ void whileTest()
     }
 }
 
+struct Family
+{
+    Family() { DBG( "family ctor"); }
+    ~Family() { DBG( "family dtor"); }
+    
+    Person mom{"mom"};
+    Person dad{"dad"};
+    Person child1{"child1"};
+    Person child2{"child2"};
+};
+
+void familyFunction()
+{
+    Family family;
+}
+
 //==============================================================================
 class HelloWorldApplication  : public JUCEApplication
 {
@@ -93,8 +116,9 @@ public:
     void initialise (const String& commandLine) override
     {
         // This method is where you should put your application's initialisation code..
-        functionC();
+        //functionC();
         //whileTest();
+        familyFunction();
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
