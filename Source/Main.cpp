@@ -11,15 +11,26 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 
+
+
 struct Person
 {
-    int age = 0;
+    int age; //= 0;
     int heightInInches = 0;
     float hairLength{0.f};
     float GPA = 0.f;
     unsigned int SATScore {0};
     int distanceTraveled = 0;
+    
     String name;
+    
+    struct Limb
+    {
+        int stepForward(){return 0;}
+    };
+    Limb leftFoot;
+    Limb rightFoot;
+    
     
     Person(String personsName) : name(personsName)
     {
@@ -29,7 +40,28 @@ struct Person
     {
         DBG( "Person dtor: " + name);
     }
+    Person(int age){this->age =age;}
+   
+    
+    int run(int howFast, bool startWithLeftFoot);
+    void moveAndSetAge(int speed, int newAge);
 };
+
+int Person::run(int howFast, bool startWithLeftFoot)
+{
+    if( startWithLeftFoot )
+    {
+        return leftFoot.stepForward() + rightFoot.stepForward();
+    }
+    return rightFoot.stepForward() + leftFoot.stepForward();
+}
+
+void Person::moveAndSetAge(int speed, int newAge)
+{
+    this->run(speed,true);
+    this->age = newAge;
+}
+
 
 struct IntValue
 {
@@ -100,6 +132,14 @@ void familyFunction()
 {
     Family family;
 }
+
+void doStuff()
+{
+    //Person p{"Danny"};
+    Person p(6);
+    p.moveAndSetAge(5, 42);
+    
+};
 
 //==============================================================================
 class HelloWorldApplication  : public JUCEApplication
